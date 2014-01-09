@@ -15,6 +15,7 @@ tools:
                 - 'vendor/*'
                 - 'app/*'
                 - 'web/*'
+                - 'src/Ayaline/Bundle/ComposerBundle/Features/*'
 
     # Code Sniffer
     php_code_sniffer:
