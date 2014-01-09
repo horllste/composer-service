@@ -10,10 +10,16 @@ matrix:
     allow_failures:
         - php: hhvm
 
+addons:
+    sauce_connect: true
+
 env:
+  global:
     # repository pborreli/composer-service
     # PUSHER_APP_ID= PUSHER_KEY= PUSHER_SECRET=
     - secure: "LwnKMDhBUzxPhbDvBzpdHK6NjXPMlS4gR5ulHKLvcMGnYkpTdiLonOeaC3iNvk3GoFmPjscFrl5YWfy/jh5vg5tUHy8FB3oue3j0GgjiVXRWZa/ccJLjySNfLNTVfmzSNkOxEDRLC3CYIIUK/FPumPBF4g72xLfRT3Zux9PAszw="
+    # SAUCE_USERNAME= SAUCE_ACCESS_KEY=
+    - secure: "Qmhtt/78y4bzIXwUHJP2P8XkSE0FmZfl+a8C7G9M+i636aTn42C2TBhhvhi+zIGNA+ryLIlkcPFdenvpzxROwz+kjmdKN0bXXzf9XD6jKgJghAesZBrFpRV7Vk1ev4RxJfAmxIFbZFhywrknEIF1RrDJICyaOfhpGvlaoJ4A7s8="
 
 services: rabbitmq
 
@@ -24,8 +30,7 @@ before_script:
     - sudo /etc/init.d/apache2 restart
     - composer install -n
     - php app/console --env=test sonata:notification:start > /dev/null &
-    - phantomjs --webdriver=4444 > /dev/null &
-    - sleep 5
+    - export BEHAT_PARAMS="extensions[Behat\MinkExtension\Extension][selenium2][wd_host]=$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@localhost:4445/wd/hub"
 
 script:
     - bin/behat --format=pretty --verbose --stop-on-failure

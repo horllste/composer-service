@@ -35,7 +35,7 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function iPressAfterItIsReady($buttonLabel)
     {
-        $this->getSession()->wait(7000, '!$("button").hasClass("disabled")');
+        $this->getSession()->wait(15000, '!$("button").hasClass("disabled")');
 
         return new When("I press \"$buttonLabel\"");
     }

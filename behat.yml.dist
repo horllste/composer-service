@@ -11,7 +11,9 @@ default:
             default_session: goutte
             javascript_session: selenium2
             goutte: ~
-            selenium2: ~
+            selenium2:
+                browser: chrome
+                capabilities: {  "platform": "Windows 8.1" , "version": "31" , "name":"Test" }
             browser_name: firefox
             show_auto: false
             show_cmd: chrome %s
