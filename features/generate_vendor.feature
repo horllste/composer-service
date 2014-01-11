@@ -24,7 +24,7 @@ Feature: generate link of compressed vendors folder from composer.json
       And I should see text matching "Done in \d+\.?\d* seconds"
       And I should see "Download" link
 
-  @javascript
+  @javascript @wip
   Scenario: Generate vendor .zip download link
     Given I am on the homepage
     When I fill in "composer_body" with:
