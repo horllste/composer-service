@@ -29,7 +29,8 @@ before_script:
     - sudo cp ~/.phpenv/versions/$(phpenv version-name)/bin/composer.phar /usr/local/bin/composer
     - chmod -R 777 app/cache app/logs
     - app/console --env=test cache:warmup
-    - chmod -R 777 app/cache app/logs
+    - mkdir web/assets
+    - chmod -R 777 app/cache app/logs web/assets
     - php app/console --env=test sonata:notification:start > /dev/null &
     - export DISPLAY=:99
     - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar
