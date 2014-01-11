@@ -10,10 +10,7 @@ Feature: generate link of compressed vendors folder from composer.json
       """
       {
           "require": {
-              "symfony/yaml": "~2.3"
-          },
-          "require-dev": {
-              "symfony/filesystem": "~2.3"
+              "monolog/monolog": "1.2.*"
           }
       }
       """
