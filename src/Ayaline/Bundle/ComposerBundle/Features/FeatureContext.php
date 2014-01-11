@@ -45,7 +45,7 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function waitUntilTheDownloadButtonShowsUp()
     {
-        $this->getSession()->wait(18000, '$("a#download-link").hasClass("in")');
+        $this->getSession()->wait(30000, '$("a#download-link").hasClass("in")');
     }
 
     /**
