@@ -25,6 +25,8 @@ before_script:
     - sudo /etc/init.d/apache2 restart
     - composer self-update
     - composer install -n --dev --prefer-dist
+    - which composer
+    - sudo cp ~/.phpenv/versions/$(phpenv version-name)/bin/composer.phar /usr/local/bin/composer
     - chmod -R 777 app/cache app/logs
     - app/console --env=test cache:warmup
     - chmod -R 777 app/cache app/logs
