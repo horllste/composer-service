@@ -1,6 +1,6 @@
 <?php
 
-namespace Ayaline\Bundle\ComposerBundle\UseCase;
+namespace Ayaline\Bundle\ComposerBundle\Features;
 
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\ExpectationException;
