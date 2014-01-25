@@ -22,9 +22,13 @@ before_script:
     - composer install -n
     - sudo cp ~/.phpenv/versions/$(phpenv version-name)/bin/composer.phar /usr/local/bin/composer
     - php app/console --env=test sonata:notification:start > /dev/null &
-    - phantomjs --webdriver=4444 > /dev/null &
+    - phantomjs --version
+    - phantomjs --webdriver=4444 > phantom.log &
     - php -S localhost:8080 -t web &
 
 script:
     - bin/phpspec r --format=pretty --verbose
     - bin/behat --format=pretty --verbose
+
+after_failure:
+    - cat phantom.log
