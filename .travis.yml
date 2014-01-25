@@ -1,7 +1,7 @@
 language: php
 
 php:
-    #- 5.3
+    - 5.3
     - 5.4
     - 5.5
     - hhvm
@@ -17,14 +17,22 @@ env:
 
 services: rabbitmq
 
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq -y --force-yes nginx-light
+
 before_script:
+    - ./.travis_before.sh
     - composer selfupdate
     - composer install -n
     - sudo cp ~/.phpenv/versions/$(phpenv version-name)/bin/composer.phar /usr/local/bin/composer
     - php app/console --env=test sonata:notification:start > /dev/null &
     - phantomjs --webdriver=4444 > /dev/null &
-    - php -S localhost:8080 -t web &
 
 script:
     - bin/phpspec r --format=pretty --verbose
     - bin/behat --format=pretty --verbose
+
+after_failure:
+    - cat /var/log/nginx/error.log
+    - cat travis_log_php
