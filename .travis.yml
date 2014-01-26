@@ -12,6 +12,8 @@ matrix:
 
 addons:
     sauce_connect: true
+    hosts:
+        - composer.dev
 
 env:
   global:
@@ -29,7 +31,11 @@ before_script:
     - sudo cp ~/.phpenv/versions/$(phpenv version-name)/bin/composer.phar /usr/local/bin/composer
     - php app/console --env=test sonata:notification:start > /dev/null &
     # server
-    - php -S localhost:8080 -t web &
+    - sudo apt-get update > /dev/null
+    - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl
+    - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
+    - sudo sed -i -e "/DocumentRoot/i\ServerName composer.dev" /etc/apache2/sites-available/default
+    - sudo /etc/init.d/apache2 restart
     # selenium
     - sh -e /etc/init.d/xvfb start
     - export DISPLAY=:99
@@ -37,7 +43,7 @@ before_script:
     #- java -jar selenium-server-standalone-2.39.0.jar > /dev/null &
     #- sleep 5
     # saucelabs
-    - export BEHAT_PARAMS="extensions[Behat\MinkExtension\Extension][selenium2][wd_host]=$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@ondemand.saucelabs.com/wd/hub"
+    - export BEHAT_PARAMS="extensions[Behat\MinkExtension\Extension][selenium2][wd_host]=$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@localhost:4445/wd/hub"
 
 script:
     - bin/phpspec r --format=pretty --verbose
