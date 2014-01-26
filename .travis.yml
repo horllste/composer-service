@@ -22,8 +22,14 @@ before_script:
     - composer install -n
     - sudo cp ~/.phpenv/versions/$(phpenv version-name)/bin/composer.phar /usr/local/bin/composer
     - php app/console --env=test sonata:notification:start > /dev/null &
-    - phantomjs --webdriver=4444 > /dev/null &
-    - php -S localhost:8080 -t web &
+    # server
+    - php -S localhost:8080 -t web &> /dev/null &
+    # selenium
+    - sh -e /etc/init.d/xvfb start
+    - export DISPLAY=:99
+    - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar
+    - java -jar selenium-server-standalone-2.39.0.jar > /dev/null &
+    - sleep 5
 
 script:
     - bin/phpspec r --format=pretty --verbose
