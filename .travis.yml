@@ -29,7 +29,7 @@ before_script:
     - sudo cp ~/.phpenv/versions/$(phpenv version-name)/bin/composer.phar /usr/local/bin/composer
     - php app/console --env=test sonata:notification:start > /dev/null &
     # server
-    - php -S localhost:80 -t web &> /dev/null &
+    - php -S localhost:8080 -t web &
     # selenium
     - sh -e /etc/init.d/xvfb start
     - export DISPLAY=:99

@@ -7,8 +7,8 @@ default:
         class: Ayaline\Bundle\ComposerBundle\Features\FeatureContext
     extensions:
         Behat\MinkExtension\Extension:
-            base_url:    'http://localhost:80/app_test.php'
-            default_session: goutte
+            base_url:    'http://composer.local:8080/app_test.php'
+            default_session: selenium2
             javascript_session: selenium2
             goutte: ~
             selenium2: ~
